@@ -1,1 +1,1 @@
-[i]
+console.log("")
