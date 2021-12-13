@@ -3,6 +3,7 @@ const readline = require("readline-sync");
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 players = ['X', 'O']
 ending = false
+console.log(board.join('\n'));
 
 function init_game() {
     console.log("Jeu du Morpion")
@@ -15,7 +16,7 @@ function display_board() {
     i = 0
     console.log(" ---  ---  ---")
     while (i < board.length) {
-        process.stdout.write("| " + board[i] + " |", end = "")
+        process.stdout.write("| " + board[i] + " |")
         i += 1
         if (i % 3 == 0) {
             console.log("")
