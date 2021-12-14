@@ -1,0 +1,73 @@
+board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+players = ['X', 'O']
+ending = false
+
+function init_game() {
+    Ecrire("Jeu du Morpion")
+    current_player = players[0]
+    game_loop(current_player)
+}
+
+/*
+function display_board() {
+    i = 0
+    Ecrire(" ---  ---  ---")
+    while (i < board.length) {
+        Ecrire("| " + board[i] + " |")
+        i += 1
+        if (i % 3 == 0) {
+            Ecrire("")
+            Ecrire(" ---  ---  ---")
+        }
+    }
+}*/
+
+function game_loop(current_player) {
+    turn = 1
+    while (turn < 5 || ending == false) {
+        play(current_player)
+        ending = check_victory(current_player)
+
+        if (current_player == players[0]) {
+            current_player = players[1]
+        }
+        else {
+            current_player = players[0]
+        }
+        turn += 1
+        if (turn > 9 && ending == false) {
+            Ecrire("Egalité !")
+            break
+        }
+    }
+}
+
+function play(current_player) {
+    num_box = SaisieEntier("Entrez le numero de la case dans laquelle vous voulez jouer (1-9) : ")
+    while (num_box > 9 || num_box < 1 || board[num_box - 1] != " ") {
+        num_box = SaisieEntier("Entrez un numero valide (1-9) : ")
+    }
+    board[num_box - 1] = current_player
+    Ecrire(board)
+}
+
+function check_victory(current_player){
+    if( board[0] != " " && board[0] == board[1] && board[0] == board[2] ||
+    board[3] != " " && board[3] == board[4] && board[3] == board[5] ||
+    board[6] != " " && board[6] == board[7] && board[6] == board[8] ||
+    board[0] != " " && board[0] == board[3] && board[0] == board[6] ||
+    board[1] != " " && board[1] == board[4] && board[1] == board[7] ||
+    board[2] != " " && board[2] == board[5] && board[2] == board[8] ||
+    board[0] != " " && board[0] == board[4] && board[0] == board[8] ||
+    board[2] != " " && board[2] == board[4] && board[2] == board[6]){
+        if (current_player == players[0]){
+            Ecrire("Félicitation ! Le joueur 'X' a gagné !")
+        }
+        else{
+            Ecrire("Félicitation ! Le joueur 'O' a gagné !")
+        }
+        return true
+    }
+    return false
+}
+init_game()
